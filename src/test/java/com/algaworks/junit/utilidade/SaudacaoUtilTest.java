@@ -1,57 +1,56 @@
 package com.algaworks.junit.utilidade;
 
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
+import static com.algaworks.junit.utilidade.SaudacaoUtil.saudar;
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class SaudacaoUtilTest {
 
-    @Test
-    public void saudarBomDiaTest() {
-        var horaValida = 9;
-        var saudacao = SaudacaoUtil.saudar(horaValida);
-        assertEquals("Bom dia", saudacao);
-    }
 
     @Test
-    public void saudarBomDiaTestApartirDasCincoHoras() {
+    public void Dado_um_horario_matuino_Quando_saudaer_Entao_deve_retornar_bom_dia() {
+        // Arrange
         var horaValida = 5;
-        var saudacao = SaudacaoUtil.saudar(horaValida);
+
+        // Act
+        var saudacao = saudar(horaValida);
+
+        // Assert
         assertEquals("Bom dia", saudacao);
     }
 
     @Test
-    void deveSaudarBoaTardeTest() {
+    void Dado_um_horario_vespertino_Quando_saudar_Entao_deve_retornar_boa_tarde() {
         var horaValida = 15;
-        var saudacao = SaudacaoUtil.saudar(horaValida);
+        var saudacao = saudar(horaValida);
         assertEquals("Boa tarde", saudacao);
     }
 
     @Test
-    void deveSaudarBoaNoite() {
-        var horaValida = 20;
-        var saudacao = SaudacaoUtil.saudar(horaValida);
-        assertEquals("Boa noite", saudacao);
-    }
-
-    @Test
-    void deveSaudarBoaNoiteAsQuatroHoras() {
+    void Dado_um_horario_noturno_Quando_saudar_Entao_deve_retornar_boa_noite() {
         var horaValida = 4;
-        var saudacao = SaudacaoUtil.saudar(horaValida);
+        var saudacao = saudar(horaValida);
         assertEquals("Boa noite", saudacao);
     }
 
     @Test
-    public void deveLancarExceptionTest() {
-        var horaInvalida = -10;
-        var illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> SaudacaoUtil.saudar(horaInvalida));
-        assertEquals("Hora inválida", illegalArgumentException.getMessage());
+    public void Dado_uma_hora_invalida_Quando_saudar_Entao_deve_lancar_exception() {
+        int horaInvalida = -10;
+        Executable chamaInvalidaDeMetodo = () -> saudar(horaInvalida);
+        var exception = assertThrows(IllegalArgumentException.class, chamaInvalidaDeMetodo);
+        assertEquals("Hora inválida", exception.getMessage());
     }
 
     @Test
-    public void naoDeveLancarException() {
+    public void Dado_uma_hora_valida_Quanto_saudar_Entao_deve_lancar_exception() {
         var horaValida = 0;
-        assertDoesNotThrow(() -> SaudacaoUtil.saudar(horaValida));
+        Executable chamadaValidaDeMetodo = () -> saudar(horaValida);
+        assertDoesNotThrow(chamadaValidaDeMetodo);
     }
 
 }
