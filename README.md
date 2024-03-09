@@ -46,5 +46,6 @@ Melhore a legibilidade e a compreensão dos seus testes usando asseções fluent
 
 ## Desafios Pendentes
 
-[**4.16. Desafio - Criar testes do CadastroPost
-**](https://app.algaworks.com/aulas/4626/desafio-criar-testes-do-cadastropost)
+[**4.16. Desafio - Criar testes do CadastroPost**](https://app.algaworks.com/aulas/4626/desafio-criar-testes-do-cadastropost)
+
+[**45.3. Desafio - Refatorar testes antigos**](https://app.algaworks.com/aulas/4629/desafio-refatorar-testes-antigos)
