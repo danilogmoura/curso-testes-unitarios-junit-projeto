@@ -8,7 +8,10 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static com.algaworks.junit.utilidade.SaudacaoUtil.saudar;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class SaudacaoUtilTest {
@@ -23,7 +26,17 @@ class SaudacaoUtilTest {
         var saudacao = saudar(horaValida);
 
         // Assert
-        assertEquals("Bom dia", saudacao);
+        // assertEquals("Bom dia", saudacao);
+
+        // String saudacaoCorreta = "Bom dia";
+
+        // var bomDia = new Condition<>((s) -> s.equals(saudacaoCorreta), "igual a %s", saudacaoCorreta);
+
+        assertThat(saudacao)
+                // .as("Validando se a saudação é %s", saudacaoCorreta)
+                // .withFailMessage("Erro: Saudação incorreta! Resultado: %s", saudacao)
+                // .isEqualTo(saudacaoCorreta);
+                .is(SaudacaoUtilConditions.igualBomDia());
     }
 
     @Test
@@ -43,9 +56,16 @@ class SaudacaoUtilTest {
     @Test
     public void Dado_uma_hora_invalida_Quando_saudar_Entao_deve_lancar_exception() {
         int horaInvalida = -10;
-        Executable chamaInvalidaDeMetodo = () -> saudar(horaInvalida);
-        var exception = assertThrows(IllegalArgumentException.class, chamaInvalidaDeMetodo);
-        assertEquals("Hora inválida", exception.getMessage());
+        // Executable chamaInvalidaDeMetodo = () -> saudar(horaInvalida);
+        // var exception = assertThrows(IllegalArgumentException.class, chamaInvalidaDeMetodo);
+        // assertEquals("Hora inválida", exception.getMessage());
+
+        // var exception = Assertions.catchThrowableOfType(() -> saudar(horaInvalida), IllegalArgumentException.class);
+        // assertThat(exception).hasMessage("Hora inválida");
+
+        assertThatThrownBy(() -> saudar(horaInvalida))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Hora inválida");
     }
 
     @Test
